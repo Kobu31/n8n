@@ -1,0 +1,196 @@
+{
+  "name": "Demo: My first AI Agent in n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "lautarorenzini@gmail.com",
+          "mode": "list",
+          "cachedResultName": "lautarorenzini@gmail.com"
+        },
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Time', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End_Time', ``, 'string') }}",
+        "options": {}
+      },
+      "id": "0d7e4666-bc0e-489a-9e8f-a5ef191f4954",
+      "name": "Google Calendar",
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        220
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "y5fCIszGPa2lVxUQ",
+          "name": "Google Calendar account"
+        }
+      },
+      "notes": "usar calendario de medico"
+    },
+    {
+      "parameters": {
+        "agent": "openAiFunctionsAgent",
+        "options": {}
+      },
+      "id": "29963449-1dc1-487d-96f2-7ff0a5c3cd97",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        560,
+        20
+      ],
+      "alwaysOutputData": true,
+      "notes": "asistente que tendria que agendar al cita"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "cbaedf86-9153-4778-b893-a7e50d3e04ba",
+      "name": "OpenAI Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        520,
+        220
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "a6cN9sF4ZlDRwImy",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "75481370-bade-4d90-a878-3a3b0201edcc",
+      "name": "Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        660,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        -100
+      ],
+      "id": "7e7b9028-b486-459e-96aa-692e06fb69dd",
+      "name": "Telegram Trigger",
+      "webhookId": "db7110e4-45e1-4875-a515-ff6faafd0b45",
+      "credentials": {
+        "telegramApi": {
+          "id": "mJSjkok6FPjIwBOB",
+          "name": "Telegram account"
+        }
+      },
+      "notes": "entrada de mensaje por telegram"
+    },
+    {
+      "parameters": {
+        "chatId": "@Agendahealth_bot",
+        "text": "asdasd",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        920,
+        20
+      ],
+      "id": "f17889a4-ca32-4487-8986-256ead56fc7b",
+      "name": "Telegram",
+      "webhookId": "96d0d61f-5204-4dae-b738-cd844140cc8e",
+      "credentials": {
+        "telegramApi": {
+          "id": "mJSjkok6FPjIwBOB",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Calendar": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "62a7e5e2-b3a9-44c0-897e-86180d4dfae8",
+  "meta": {
+    "templateId": "PT1i+zU92Ii5O2XCObkhfHJR5h9rNJTpiCIkYJk9jHU=",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8e5f1360020253d47cc179b7bfeeeb333ac6330e911e3d98229ada26e7dca42e"
+  },
+  "id": "4wJaVbQbVWa2iCFj",
+  "tags": []
+}
