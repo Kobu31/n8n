@@ -1,1 +1,1 @@
-aca lo que se busca es poder subir a un github n8n para poder compartirlo y tirar commits 
+Este repositorio contiene un flujo de trabajo para n8n, un sistema de automatización de procesos. El archivo JSON (Prueban8n.json) es un flujo exportado que puedes importar en tu instancia de n8n para su uso
