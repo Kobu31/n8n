@@ -37,6 +37,5 @@ Guarda los cambios y activa el flujo si es necesario.
 
 Si el flujo requiere credenciales o configuraciones específicas (como API Keys o URLs), asegúrate de editar los nodos correspondientes antes de ejecutarlo.
 
-Contribuciones
 
-Si necesitas modificar el flujo y compartirlo con el equipo:
+
